@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Administrative Professional Certification</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        :root {
+            --brand-primary: #0f172a;
+            --brand-accent: #3b82f6;
+            --brand-surface: #f8fafc;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-surface);
+            color: var(--brand-primary);
+        }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        [x-cloak] { display: none !important; }
+        
+        /* Smooth Page Transitions */
+        .page-enter { opacity: 0; transform: translateX(20px); }
+        .page-enter-active { opacity: 1; transform: translateX(0); transition: all 0.3s ease-out; }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#0f172a',
+                            accent: '#3b82f6',
+                            surface: '#f8fafc',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body x-data="app()" x-init="initIcons()">
+
+    <div class="flex min-h-screen">
+        
+        <aside 
+            x-show="!['WELCOME', 'HOW-TO', 'BASELINE'].includes(currentPage)"
+            :class="sidebarOpen ? 'w-72' : 'w-20'"
+            class="bg-brand-primary text-white transition-all duration-300 flex flex-col border-r border-white/5 relative z-50 overflow-hidden"
+            x-transition>
+            
+            <div class="p-6 mb-8 flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-accent rounded-xl flex items-center justify-center shrink-0 shadow-lg">
+                    <i data-lucide="award"></i>
+                </div>
+                <div x-show="sidebarOpen" class="font-bold tracking-tight text-sm leading-tight">SAP Certification</div>
+            </div>
+
+            <nav class="flex-1 px-4 space-y-2">
+                <button @click="currentPage = 'DASHBOARD'" :class="currentPage === 'DASHBOARD' ? 'bg-blue-500 text-white' : 'text-slate-400'" class="w-full flex items-center gap-4 p-3 px-4 rounded-xl hover:bg-white/5 transition-all">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span x-show="sidebarOpen" class="font-medium text-sm">Dashboard</span>
+                </button>
+                <button class="w-full flex items-center gap-4 p-3 px-4 rounded-xl text-slate-400 hover:bg-white/5">
+                    <i data-lucide="book-open"></i>
+                    <span x-show="sidebarOpen" class="font-medium text-sm">Course Content</span>
+                </button>
+            </nav>
+
+            <button @click="sidebarOpen = !sidebarOpen" class="absolute top-20 -right-4 w-8 h-8 bg-brand-accent text-white rounded-full flex items-center justify-center shadow-lg border-4 border-slate-50">
+                <i data-lucide="chevron-right" :class="sidebarOpen ? 'rotate-180' : ''" class="w-3 h-3 transition-transform"></i>
+            </button>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto">
+
+            <section x-show="currentPage === 'WELCOME'" x-cloak class="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-br from-slate-900 to-brand-primary text-white text-center">
+                <div class="max-w-3xl space-y-8">
+                    <div class="inline-block p-2 px-4 bg-blue-500/20 rounded-full border border-blue-400/30 text-blue-300 font-mono text-xs uppercase tracking-widest">CSAP-WELCOME</div>
+                    <h1 class="text-4xl md:text-6xl font-bold">Build the Skills That Turn Administrative Staff into Strategic Office Leaders</h1>
+                    <p class="text-xl text-slate-300 font-light">Transform from administrative support into a strategic operational professional through practical learning.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 text-left my-12">
+                        <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="target" class="text-blue-400"></i> What You Gain</h3>
+                            <ul class="space-y-2 text-slate-400 text-sm">
+                                <template x-for="item in ['Practical systems', 'Communication mastery', 'Workflow expertise', 'Leadership thinking']">
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check-circle-2" class="text-emerald-400 w-4"></i>
+                                        <span x-text="item"></span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                        <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="trophy" class="text-blue-400"></i> Program Snapshot</h3>
+                            <div class="space-y-3 text-sm text-slate-400">
+                                <div class="flex justify-between"><span>Structure:</span> <span class="text-white">4 Levels</span></div>
+                                <div class="flex justify-between"><span>Duration:</span> <span class="text-white">8–12 weeks</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button @click="currentPage = 'HOW-TO'" class="bg-brand-accent px-8 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-blue-600 transition-all">
+                            <i data-lucide="play"></i> Start Course
+                        </button>
+                        <button @click="currentPage = 'BASELINE'" class="border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/10 transition-all">Take Assessment</button>
+                    </div>
+                </div>
+            </section>
+
+            <section x-show="currentPage === 'HOW-TO'" x-cloak class="min-h-screen bg-slate-50 p-6 flex flex-col items-center justify-center">
+                <div class="max-w-4xl w-full text-center">
+                    <div class="font-mono text-xs text-slate-500 mb-2">CSAP-HOW-TO</div>
+                    <h2 class="text-3xl font-bold mb-12">How to Use This Course</h2>
+                    <div class="grid md:grid-cols-3 gap-8 text-left">
+                        <div class="md:col-span-2 aspect-video bg-brand-primary rounded-3xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
+                            <div class="bg-white p-6 rounded-full shadow-xl"><i data-lucide="play" class="fill-brand-primary text-brand-primary"></i></div>
+                            <div class="absolute bottom-6 left-6 text-white">
+                                <p class="text-xs opacity-70 uppercase">Video Guide</p>
+                                <p class="font-bold">Watch Introduction</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                                <h4 class="font-bold mb-4 flex items-center gap-2 text-blue-500"><i data-lucide="navigation" class="w-4"></i> Strategy</h4>
+                                <ul class="text-sm space-y-3 text-slate-600">
+                                    <li><span class="font-bold text-blue-500">01</span> Watch Lessons</li>
+                                    <li><span class="font-bold text-blue-500">02</span> Download Tools</li>
+                                    <li><span class="font-bold text-blue-500">03</span> Pass Quizzes</li>
+                                </ul>
+                            </div>
+                            <button @click="currentPage = 'DASHBOARD'" class="w-full bg-brand-primary text-white py-4 rounded-xl font-bold">Go to Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section x-show="currentPage === 'DASHBOARD'" x-cloak class="max-w-6xl mx-auto py-12 px-6">
+                <header class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                    <div>
+                        <h1 class="text-3xl font-bold">Your Dashboard</h1>
+                        <p class="text-slate-500">Transforming potential into operational reality.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-6">
+                        <div class="text-right">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">Total Progress</p>
+                            <p class="text-xl font-bold text-brand-accent">33%</p>
+                        </div>
+                        <div class="w-32 h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-brand-accent w-1/3"></div>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 grid sm:grid-cols-2 gap-4">
+                        <template x-for="level in levels" :key="level.id">
+                            <div @click="!level.locked && (selectedLevel = level, currentPage = 'LEVEL-OVERVIEW')" 
+                                 :class="level.locked ? 'opacity-60 cursor-not-allowed bg-slate-50' : 'bg-white cursor-pointer hover:shadow-xl hover:border-blue-300'"
+                                 class="p-6 rounded-2xl border border-slate-200 transition-all group">
+                                <div class="flex justify-between mb-4">
+                                    <span class="text-xs font-bold px-2 py-1 bg-slate-100 rounded text-slate-500" x-text="'Level ' + level.id.replace('L','')"></span>
+                                    <i :data-lucide="level.locked ? 'lock' : 'check-circle-2'" :class="level.completion === 100 ? 'text-emerald-500' : 'text-slate-300'"></i>
+                                </div>
+                                <h3 class="font-bold mb-4 group-hover:text-brand-accent" x-text="level.title"></h3>
+                                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand-accent transition-all duration-1000" :style="'width: ' + level.completion + '%'"></div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    
+                    <aside class="space-y-6">
+                        <div class="p-8 bg-brand-primary rounded-3xl text-white relative overflow-hidden">
+                            <p class="text-blue-300 text-xs font-bold uppercase mb-2">Next Step</p>
+                            <h3 class="text-xl font-bold mb-4">Office Organization Systems</h3>
+                            <button class="w-full bg-blue-500 py-3 rounded-xl text-sm font-bold">Resume Learning</button>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <section x-show="currentPage === 'LEVEL-OVERVIEW'" x-cloak class="min-h-screen bg-slate-50 p-6">
+                <div class="max-w-5xl mx-auto py-6">
+                    <button @click="currentPage = 'DASHBOARD'" class="flex items-center gap-2 text-slate-500 hover:text-brand-primary mb-8">
+                        <i data-lucide="arrow-left" class="w-4"></i> Back to Dashboard
+                    </button>
+
+                    <div class="bg-white rounded-[40px] shadow-2xl border border-slate-100 overflow-hidden">
+                        <div class="p-12 border-b border-slate-50">
+                            <h1 class="text-4xl font-bold mb-4" x-text="selectedLevel?.title"></h1>
+                            <p class="text-slate-500 text-lg" x-text="selectedLevel?.objective"></p>
+                        </div>
+                        <div class="grid md:grid-cols-2">
+                            <div class="p-12 bg-slate-50/50">
+                                <h3 class="font-bold text-lg mb-6 flex items-center gap-2"><i data-lucide="target" class="text-blue-500 w-5"></i> Objectives</h3>
+                                <ul class="space-y-4">
+                                    <template x-for="cap in selectedLevel?.capabilities">
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check-circle-2" class="text-emerald-500 w-5 mt-1"></i>
+                                            <span class="font-medium text-slate-700" x-text="cap"></span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                            <div class="p-12">
+                                <h3 class="font-bold text-sm uppercase text-slate-400 mb-6">Modules</h3>
+                                <div class="space-y-3">
+                                    <template x-for="mod in selectedLevel?.modules">
+                                        <div class="p-4 rounded-xl border border-slate-100 flex justify-between items-center hover:border-blue-400 cursor-pointer transition-all">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                                                    <i data-lucide="book-open" class="w-5"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="font-bold text-sm" x-text="mod.title"></p>
+                                                    <p class="text-xs text-slate-400" x-text="mod.duration + ' • ' + mod.lessons + ' lessons'"></p>
+                                                </div>
+                                            </div>
+                                            <i data-lucide="chevron-right" class="text-slate-300 w-4"></i>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        function app() {
+            return {
+                currentPage: 'WELCOME',
+                sidebarOpen: true,
+                selectedLevel: null,
+                levels: [
+                    {
+                        id: 'L1',
+                        title: 'Administrative Foundations',
+                        objective: 'Build foundational skills for communication and organization.',
+                        capabilities: ['Clear professional emails', 'Efficient document organization', 'Time management discipline'],
+                        modules: [
+                            { title: 'Professional Communication', duration: '2h', lessons: 4 },
+                            { title: 'Office Organization Systems', duration: '1.5h', lessons: 3 }
+                        ],
+                        locked: false,
+                        completion: 33
+                    },
+                    {
+                        id: 'L2',
+                        title: 'Systems & Coordination',
+                        objective: 'Design workflows and manage office systems.',
+                        capabilities: ['Workflow management', 'Event coordination', 'Vendor relations'],
+                        modules: [{ title: 'Workflow Management', duration: '3h', lessons: 6 }],
+                        locked: true,
+                        completion: 0
+                    },
+                    {
+                        id: 'L3',
+                        title: 'Executive Support',
+                        objective: 'Strengthen support through reporting and data visualization.',
+                        capabilities: ['Briefing notes', 'Data visualization', 'Ethics'],
+                        modules: [{ title: 'Strategic Reporting', duration: '2.5h', lessons: 5 }],
+                        locked: true,
+                        completion: 0
+                    },
+                    {
+                        id: 'L4',
+                        title: 'Office Leadership',
+                        objective: 'Transition from execution to leadership.',
+                        capabilities: ['Team leadership', 'Crisis management', 'Operational strategy'],
+                        modules: [{ title: 'Team Leadership', duration: '4h', lessons: 8 }],
+                        locked: true,
+                        completion: 0
+                    }
+                ],
+                initIcons() {
+                    lucide.createIcons();
+                    // Re-run icon creation whenever page changes
+                    this.$watch('currentPage', () => {
+                        this.$nextTick(() => lucide.createIcons());
+                    });
+                    this.$watch('sidebarOpen', () => {
+                        this.$nextTick(() => lucide.createIcons());
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>
